@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import BatteryChargingFullOutlinedIcon from '@mui/icons-material/BatteryChargingFullOutlined';
 import SmartphoneOutlinedIcon from '@mui/icons-material/SmartphoneOutlined';
-import LocalLaundryServiceOutlinedIcon from '@mui/icons-material/LocalLaundryServiceOutlined';
 import KitchenOutlinedIcon from '@mui/icons-material/KitchenOutlined';
-import MicrowaveOutlinedIcon from '@mui/icons-material/MicrowaveOutlined';
 import DesktopWindowsOutlinedIcon from '@mui/icons-material/DesktopWindowsOutlined';
-import SettingsInputComponentOutlinedIcon from '@mui/icons-material/SettingsInputComponentOutlined';
 import HandymanOutlinedIcon from '@mui/icons-material/HandymanOutlined';
 import ElectricalServicesOutlinedIcon from '@mui/icons-material/ElectricalServicesOutlined';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -17,8 +14,8 @@ import { useFonts, Roboto_900Black, Roboto_400Regular_Italic } from '@expo-googl
 export default function ScrDiscard({ navigation }) {
   const [devices, setDevices] = React.useState(() => [null]);
   const handleDevices = (
-    event: React.MouseEvent<HTMLElement>,
-    newDevices: string[]
+    MouseEvent,
+    newDevices
   ) => {
     if (newDevices.length) {
       setDevices(newDevices);
