@@ -24,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.lucascatanio.snack5432a71c934340468aa2f48b051e43b9"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ae46cf45-b604-41da-a901-a09b3e4d4dc3"
+      }
     }
   }
 }
