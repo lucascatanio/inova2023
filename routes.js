@@ -14,7 +14,7 @@ export default function Routes() {
   return (
     <NavigationContainer>
 
-      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="ScrHome">
+      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="ScrLogin">
         <Stack.Screen name="ScrLogin" component={ScrLogin} />
         <Stack.Screen name="ScrHome" component={ScrHome} />
         <Stack.Screen name="ScrDiscard" component={ScrDiscard} />
