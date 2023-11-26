@@ -44,6 +44,9 @@ export default function Schedules({navigation}) {
   const scrMyDiscards = () => {
     navigation.navigate('ScrMyDiscards')
   }
+  const scrBalance = () => {
+    navigation.navigate('ScrBalance')
+  }
   const [fontLoaded] = useFonts({
     Roboto_900Black, Roboto_400Regular_Italic,
 })
@@ -112,7 +115,7 @@ if(!fontLoaded) {
         <TouchableOpacity style={styles.bottomIcons}>
           <CalendarMonthOutlinedIcon style={styles.icons_blue} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomIcons}>
+        <TouchableOpacity onPress={scrBalance} style={styles.bottomIcons}>
           <AccountCircleOutlinedIcon style={styles.icons_white} />
         </TouchableOpacity>
       </LinearGradient>

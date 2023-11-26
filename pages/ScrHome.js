@@ -20,6 +20,9 @@ export default function ScrHome({ navigation }) {
   const mySchedules = () => {
     navigation.navigate('ScrMySchedules');
   };
+  const scrBalance = () => {
+    navigation.navigate('ScrBalance')
+  };
   const [fontLoaded] = useFonts({
     Roboto_900Black, Roboto_400Regular_Italic,
 })
@@ -76,7 +79,7 @@ if(!fontLoaded) {
         <TouchableOpacity onPress={mySchedules} style={styles.bottomIcons}>
           <CalendarMonthOutlinedIcon style={styles.icons_white} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomIcons}>
+        <TouchableOpacity onPress={scrBalance} style={styles.bottomIcons}>
           <AccountCircleOutlinedIcon style={styles.icons_white} />
         </TouchableOpacity>
       </LinearGradient>

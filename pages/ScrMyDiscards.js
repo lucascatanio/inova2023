@@ -33,6 +33,9 @@ export default function ScrMyDiscards({ navigation }) {
   const scrMySchedules = () => {
     navigation.navigate('ScrMySchedules')
   }
+  const scrBalance = () => {
+    navigation.navigate('ScrBalance')
+  }
   return (
     <View style={{flex: 1}}>
       <View style={styles.boxTitle}>
@@ -92,7 +95,7 @@ export default function ScrMyDiscards({ navigation }) {
         <TouchableOpacity onPress={scrMySchedules} style={styles.bottomIcons}>
           <CalendarMonthOutlinedIcon style={styles.icons_white} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomIcons}>
+        <TouchableOpacity onPress={scrBalance} style={styles.bottomIcons}>
           <AccountCircleOutlinedIcon style={styles.icons_white} />
         </TouchableOpacity>
       </LinearGradient>
