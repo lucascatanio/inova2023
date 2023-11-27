@@ -89,7 +89,6 @@ export default function ScrLogin({ navigation }) {
           style={styles.image_ecodrop}
           source={require("../assets/ecodrop-logo.png")}
         />
-        <Text>{msg}</Text>
         <View style={styles.view_text_input}>
           <AlternateEmailIcon style={{ color: "#004AAD" }} />
           <TextInput
@@ -134,6 +133,7 @@ export default function ScrLogin({ navigation }) {
               <Text style={styles.text_sigIn}>Cadastre-se</Text>
             </TouchableOpacity>
             <View>
+              <Text>{msg}</Text>
             </View>
           </View>
         </View>

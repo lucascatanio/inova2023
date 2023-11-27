@@ -10,12 +10,58 @@ import {
   Roboto_900Black,
   Roboto_400Regular_Italic,
 } from '@expo-google-fonts/roboto';
+import axios from 'axios';
 
-export default function Peso_mapa({ navigation }) {
+const url = "http://api.wmomodavix.com.br/submit/discard";
+
+export default function Peso_mapa({ route,navigation }) {
+//  const [infoDiscard, setInfoDiscard] = useState([]);
+  const [region, setRegion] = useState('');
+  const [email, setEmail] = useState('jose@mane.com.br');
+  const [msg, setMsg] = useState('');
+  const [slideValue, setSlideValue] = useState(40);
+
   const [fontLoaded] = useFonts({
     Roboto_900Black,
     Roboto_400Regular_Italic,
   });
+  const {devices} = route.params
+
+  const handleRegions = (e) => {
+    setRegion(e.target.textContent)
+  }
+
+  const handleSubmit = () => {
+    let config = {
+      withCredencials: false,
+      responseType: "json",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+    };
+    let json = {
+      "email": email,
+      "devices": JSON.stringify(devices),
+      "region": region,
+      "peso": slideValue
+    };
+    axios
+      .post(url, json, config)
+      .then((res) => {
+        if (res.data.success) {
+          setMsg(res.data.msg);
+          navigation.navigate('ScrMySchedules')
+        } else {
+          setMsg(res.data.msg);
+        }
+      })
+      .catch((err) => {
+        setMsg("Erro ao tentar enviar o registro.");
+        console.log(err);
+      });
+  }
+
+  console.log(devices);
 
   if (!fontLoaded) {
     return null;
@@ -36,6 +82,7 @@ export default function Peso_mapa({ navigation }) {
         </Text>
         <Autocomplete
           disablePortal
+          onChange={handleRegions}
           closeText
           id="combo-box-demo"
           options={regions}
@@ -50,7 +97,7 @@ export default function Peso_mapa({ navigation }) {
         colors={['#2B92D6', '#0ED028']}
         start={{ x: 0.5, y: 0.5 }}
         end={{ x: 0.5, y: 0.5 }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={ () => { handleSubmit() } }>
           <Text style={styles.text_gradient_bottom}>Confirmar</Text>
         </TouchableOpacity>
       </LinearGradient>
@@ -118,6 +165,15 @@ function DiscreteSlider() {
   const handleChange = (event, newValue) => {
     setSlideValue(newValue);
   };
+
+  // const handleInfoDiscards = () => {
+  //   setInfoDiscard([
+  //     email,
+  //     devices,
+  //     region,
+  //     slideValue
+  //   ]);
+  // };
 
   return (
     <div className={classes.root}>

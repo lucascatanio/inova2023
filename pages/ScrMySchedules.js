@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react';
 import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import boxIcon from '../assets/box-icon.png';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -7,37 +8,126 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useFonts, Roboto_900Black, Roboto_400Regular_Italic } from '@expo-google-fonts/roboto';
 
-const AwaitingData = [
-  {
-    id:'001',
-    info:['5555', '13/08/2023  14:42']
-  },
-  {
-    id:'002',
-    info:['5556', '25/09/2023  15:30']
-  }
-]
+import axios from 'axios';
 
-const FinalizedData = [
-  {
-    id:'001',
-    info:['5551', '17/07/2023  09:25']
-  },
-  {
-    id:'002',
-    info:['5552', '13/08/2023  12:23']
-  },
-  {
-    id:'003',
-    info:['5553', '18/08/2023  14:37']
-  },
-  {
-    id:'004',
-    info:['5554', '23/09/2023  16:30']
-  }
-]
+
+//const AwaitingData = [
+  // {
+  //   id:'001',
+  //   info:['5555', '13/08/2023  14:42']
+  // },
+  // {
+  //   id:'002',
+  //   info:['5556', '25/09/2023  15:30']
+  // }
+//]
+
+//const FinalizedData = [
+  // {
+  //   id:'001',
+  //   info:['5551', '17/07/2023  09:25']
+  // },
+  // {
+  //   id:'002',
+  //   info:['5552', '13/08/2023  12:23']
+  // },
+  // {
+  //   id:'003',
+  //   info:['5553', '18/08/2023  14:37']
+  // },
+  // {
+  //   id:'004',
+  //   info:['5554', '23/09/2023  16:30']
+  // }
+//]
+
+const url = "http://api.wmomodavix.com.br/schedules/list";
+
+const getSchedules = () => {
+  // let config = {
+  //   withCredencials: false,
+  //   responseType: "json",
+  //   headers: {
+  //     "Content-Type": "application/x-www-form-urlencoded"
+  //   },
+  // };
+  axios
+    .get(url)
+    .then((res) => {
+      if (res.data.success) {
+        setMsg(res.data.msg);
+
+        const data = res.data.data
+        data.map( (row, i) => {
+          if (row.status === 'aguardando')
+            AwaitingData.push(row)
+          else
+            FinalizedData.push(row)
+          
+          console.log(row)
+          return row
+        })
+
+      } else {
+        setMsg(res.data.msg);
+      }
+    })
+    .catch((err) => {
+      //setMsg("Erro ao tentar enviar o registro.");
+      console.log(err);
+    });
+}
+
 
 export default function Schedules({navigation}) {
+  const [schedules, setSchedules] = useState([]);
+  const [AwaitingData, setAwaitingData] = useState([]);
+  
+
+  const [msg, setMsg] = useState('');
+
+  const getSchedules = () => {
+    // let config = {
+    //   withCredencials: false,
+    //   responseType: "json",
+    //   headers: {
+    //     "Content-Type": "application/x-www-form-urlencoded"
+    //   },
+    // };
+    axios
+      .get(url)
+      .then((res) => {
+        if (res.data.success) {
+          setMsg(res.data.msg);
+  
+          const data = res.data.data
+          let awaitingData = data.map( (row, i) => {
+
+            // if (row.status === 'aguardando')
+            //   AwaitingData.push(row)
+            // else
+            //   FinalizedData.push(row)
+            
+            console.log(row)
+            return row
+          });
+          setAwaitingData(awaitingData)
+  
+        } else {
+          setMsg(res.data.msg);
+        }
+      })
+      .catch((err) => {
+        //setMsg("Erro ao tentar enviar o registro.");
+        console.log(err);
+      });
+  }
+
+
+  useEffect(() => {
+    getSchedules()
+  }, [schedules, AwaitingData, FinalizedData])
+
   const scrHome = () => {
     navigation.navigate('ScrHome')
   }
@@ -50,6 +140,8 @@ export default function Schedules({navigation}) {
   const [fontLoaded] = useFonts({
     Roboto_900Black, Roboto_400Regular_Italic,
 })
+
+
 
 if(!fontLoaded) {
     return null ;

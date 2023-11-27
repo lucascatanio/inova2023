@@ -12,7 +12,8 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useFonts, Roboto_900Black, Roboto_400Regular_Italic } from '@expo-google-fonts/roboto';
 
 export default function ScrDiscard({ navigation }) {
-  const [devices, setDevices] = React.useState(() => [null]);
+  const [devices, setDevices] = React.useState([]);
+
   const handleDevices = (
     MouseEvent,
     newDevices
@@ -20,9 +21,11 @@ export default function ScrDiscard({ navigation }) {
     if (newDevices.length) {
       setDevices(newDevices);
     }
+    
   };
+
   const scrWeightMap = () => {
-    navigation.navigate('ScrWeightMap');
+    navigation.navigate('ScrWeightMap', {devices});
   };
   const [fontLoaded] = useFonts({
     Roboto_900Black,
