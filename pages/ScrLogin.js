@@ -43,9 +43,12 @@ export default function ScrLogin({ navigation }) {
     //   Alert.alert('Ocorreu um erro', 'Usuário ou Senha inválidos.');
     // }
     let config = {
+      withCredencials: false,
+      responseType: "json",
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        //"Accept": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+        //"Access-Control-Allow-Origin": "*"
       },
     };
     let json = {
@@ -58,7 +61,8 @@ export default function ScrLogin({ navigation }) {
         if (res.data.success) {
           setEmail(res.data.data.email);
           setPassword(res.data.data.password);
-          setMsg("Sucesso...");
+          setMsg(res.data.msg);
+          navigation.navigate('ScrHome')
         } else {
           setMsg(res.data.msg);
         }
